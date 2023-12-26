@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: devfile-sample
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: devfile-sample
+    app.kubernetes.io/part-of: devfile-sample
+  name: devfile-sample
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: nodejs-app
+      app.kubernetes.io/instance: devfile-sample
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodejs-app
+        app.kubernetes.io/instance: devfile-sample
+    spec:
+      containers:
+      - image: quay.io/redhat-user-workloads-stage/beaumorley-tenant/devfile-sample/devfile-sample@sha256:4f0530f2843e7b30bdd3894db01ccdcdafd5e1ada9f88b475f7ae98c0f8b2bf4
+        name: my-nodejs
+        ports:
+        - containerPort: 3001
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
